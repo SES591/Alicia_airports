@@ -35,8 +35,8 @@ def TE(a1,a2,k):
                     
                     #denominator of the logarithm
                     r=0
-                    for v in range(0,2**k):
-                        r+=M[v,j,0]+M[v,j,1]
+                    for v in range(0,2):
+                        r+=M[i,v,0]+M[i,v,1]
                     x3=(M[i,j,0]+M[i,j,1])/r
                                         
                     #total for this triplet

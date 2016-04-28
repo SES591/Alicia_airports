@@ -40,7 +40,7 @@ def AI(a1,k):
                 x4=0
             #print i,j,x1, x2, x3, x4
             
-            ai+= x4
+            ai+= x4/(2*(2**k))
                 
     #y=sum(sum(sum(M2)))*C[a][b]
     return ai

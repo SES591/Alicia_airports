@@ -3,7 +3,7 @@ import flights
 import parameters
 from parameters import *
 import initialize
-from initialize import *
+from initialize_realdata import *
     
 def main():
     #Load starting queues into the system

@@ -41,16 +41,18 @@ def AI(a1):
                 x4=0
             #print i,j,x1, x2, x3, x4
             
-            ai+= x4
+            ai+= x4/16.0
                 
     #y=sum(sum(sum(M2)))*C[a][b]
     return ai
 
 Y=[]
-for i in range(0,len(L)):
+for i in range(0,len(N)):
     a1=L[i]
     y=AI(a1)
+    print a1, y
     Y.append(y)
+
 
 Y=np.sort(Y)
 Y[:]=Y[::-1]

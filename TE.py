@@ -37,8 +37,8 @@ def TE(a1,a2):
                     
                     #denominator of the logarithm
                     r=0
-                    for v in range(0,8):
-                        r+=M[v,j,0]+M[v,j,1]
+                    for v in range(0,2):
+                        r+=M[i,v,0]+M[i,v,1]
                     x3=(M[i,j,0]+M[i,j,1])/r
                                         
                     #total for this triplet
@@ -55,14 +55,15 @@ def TE(a1,a2):
 
 TE_matrix=np.zeros((len(L),len(L)))
 Y=[]
-for i in range(0,len(L)):
-    for j in range(0,len(L)):
+for i in range(0,len(N)):
+    for j in range(0,len(N)):
         if i!=j:
             a1=L[i]
             a2=L[j]
             t=TE(a1,a2)
             TE_matrix[i,j]=t
-            #print a1, a2, t
+            if t!=0:
+                print a1, a2, t, C[i][j]
             Y.append(t)
 
 X=np.arange(380)

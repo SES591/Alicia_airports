@@ -12,14 +12,14 @@ def time_minutes(t):
 def start_system(all_flights):
     import parameters
     import random
+    import matplotlib.pyplot as plt
     parameters.N=np.genfromtxt('airports_top20',dtype=None)
     parameters.connectivity_fraction=np.genfromtxt('fraction_connecting_passengers')
     N_flights_total=parameters.N_flights_total
     N_flights_remaining=parameters.N_flights_remaining
     delayed=0
-    parameters.D=np.genfromtxt('real_delays')
-    ld=len(parameters.D)
-    print np.average(parameters.D)
+    first_flights=0
+    DELAYS=[]
     for i in range(0,len(parameters.N)):
         n=parameters.N[i]
         A=np.genfromtxt('top20_airports_tail_queue_%s' % (n),dtype=None)
@@ -48,7 +48,7 @@ def start_system(all_flights):
             l+=1
     r=random.random()
     #first flight is always delayed
-    in_delay=parameters.D[random.randint(0,ld-1)]
+    in_delay=random.randint(30,60) 
     all_flights[0] = Flight(0, M[0][6], M[0][1], M[0][2], M[0][3], time_minutes(M[0][4]), time_minutes(M[0][5]),l,in_delay)
     
     all_flights[0].queue_first=True
@@ -68,12 +68,14 @@ def start_system(all_flights):
             #in_delay=random.randint(30,120)
             #delayed+=1
         if l==1:
-            w2=random.random()
-            if w2<=0.17:
-                in_delay=parameters.D[random.randint(0,ld-1)]
-                #in_delay=20 #from the paper
-                #in_delay=42 #average from real delay
-                delayed+=1
+            first_flights+=1
+            if time_minutes(M[i][7])!=time_minutes(M[i][4]):
+                de=time_minutes(M[i][7])-time_minutes(M[i][4])
+                if de>0:
+                    in_delay=de
+                    #print de
+                    delayed+=1
+                    DELAYS.append(de)
             else:
                 in_delay=0
         else:
@@ -124,7 +126,8 @@ def start_system(all_flights):
                
     parameters.remaining_flights=all_flights
     parameters.SAAR_matrix=np.genfromtxt('SAAR_matrix_top20')
-    print ld, delayed, b
+    print DELAYS
+    print m, first_flights, delayed, b
 ################################################################################
             
 def update_system(remaining_flights):
